@@ -26,6 +26,20 @@ describe "Nave de carga" {
 		assert.equals(0, naveVacia.carga())
 	}
 
+	test "propulsar nave"{
+		naveLlena.propulsar()
+		assert.equals(300000,naveLlena.velocidad())
+		naveVacia.propulsar()
+		assert.equals(20000,naveVacia.velocidad())
+	}
+
+	test "preparar para viaje"{
+		naveLlena.prepararViaje()
+		assert.equals(300000,naveLlena.velocidad())
+		naveVacia.prepararViaje()
+		assert.equals(15000,naveVacia.velocidad())
+	}
+
 }
 
 describe "Nave de pasajeros" {
@@ -54,6 +68,19 @@ describe "Nave de pasajeros" {
 		assert.that(naveSinPasajeros.alarma())
 	}
 
+	test "propulsar nave"{
+		naveConPasajeros.propulsar()
+		assert.equals(300000,naveConPasajeros.velocidad())
+		naveSinPasajeros.propulsar()
+		assert.equals(20000,naveSinPasajeros.velocidad())
+	}
+
+	test "preparar para viaje"{
+		naveConPasajeros.prepararViaje()
+		assert.equals(300000,naveConPasajeros.velocidad())
+		naveSinPasajeros.prepararViaje()
+		assert.equals(15000,naveSinPasajeros.velocidad())
+	}
 }
 
 describe "Nave de combate" {
@@ -82,5 +109,39 @@ describe "Nave de combate" {
 	test "recibir amenaza en ataque" {
 		naveEnAtaque.recibirAmenaza()
 		assert.equals("Enemigo encontrado", naveEnAtaque.ultimoMensaje())
+	}
+
+	test "propulsar nave"{
+		naveEnReposo.propulsar()
+		assert.equals(20000,naveEnReposo.velocidad())
+	}
+
+	test "preparar para viaje"{
+		naveEnAtaque.prepararViaje()
+		assert.equals("Volviendo a la base",naveEnAtaque.ultimoMensaje())
+		naveEnReposo.prepararViaje()
+		assert.equals("Saliendo en misión",naveEnReposo.ultimoMensaje())
+	}
+
+}
+
+describe "Nave de carga de residuos"{
+	
+	const naveConResiduos = new NaveDeCargaResiduo(velocidad = 0,sellado=false,carga=150)
+
+	test "cerrar al vacio"{
+		naveConResiduos.cerrarAlVacio()
+		assert.that(naveConResiduos.sellado())
+	}
+
+	test "recibe amenaza"{
+		naveConResiduos.recibirAmenaza()
+		assert.equals(0,naveConResiduos.velocidad())
+	}
+
+	test "preparar para viaje"{
+		naveConResiduos.prepararViaje()
+		assert.equals(15000,naveConResiduos.velocidad())
+		assert.that(naveConResiduos.sellado())
 	}
 }

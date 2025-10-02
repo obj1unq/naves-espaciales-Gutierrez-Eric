@@ -3,14 +3,18 @@ class Nave {
 
 	method propulsar(){
 		//EXCEPCIÓN SUPERA LIMITE VELOCIDAD
-		if(velocidad < 300000){
-			velocidad = (velocidad + 20000).min(300000)
-		} 
+		if((velocidad + 20000) < 300000){
+			velocidad = velocidad + 20000
+		} else {
+			velocidad = 300000
+		}
 	}
 
 	method prepararViaje(){
-		if(velocidad < 300000){
-			velocidad = (velocidad + 15000).min(300000)
+		if((velocidad+15000) < 300000){
+			velocidad = velocidad +15000
+		} else {
+			velocidad = 300000
 		}
 	}
 
@@ -131,7 +135,7 @@ class NaveDeCargaResiduo inherits NaveDeCarga {
 	var property sellado 
 
 	method cerrarAlVacio(){
-
+		sellado = true
 	}
 
 	override method recibirAmenaza(){
@@ -140,6 +144,6 @@ class NaveDeCargaResiduo inherits NaveDeCarga {
 
 	override method prepararViaje(){
 		super()
-		sellado = true
+		self.cerrarAlVacio()
 	}
 }
