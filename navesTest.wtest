@@ -2,7 +2,7 @@ import naves.*
 
 describe "Nave de carga" {
 
-	const naveVacia = new NaveDeCarga()
+	const naveVacia = new NaveDeCarga(carga = 0, velocidad = 0)
 	const naveLlena = new NaveDeCarga(carga = 500000, velocidad = 290000)
 
 	test "sobrecargada" {
@@ -30,7 +30,7 @@ describe "Nave de carga" {
 
 describe "Nave de pasajeros" {
 
-	const naveSinPasajeros = new NaveDePasajeros()
+	const naveSinPasajeros = new NaveDePasajeros(cantidadDePasajeros = 0, velocidad = 0)
 	const naveConPasajeros = new NaveDePasajeros(cantidadDePasajeros = 296, velocidad = 290000)
 
 	test "velocidad maxima sin pasajeros" {
@@ -58,8 +58,8 @@ describe "Nave de pasajeros" {
 
 describe "Nave de combate" {
 
-	const naveEnReposo = new NaveDeCombate()
-	const naveEnAtaque = new NaveDeCombate(modo = ataque)
+	const naveEnReposo = new NaveDeCombate(velocidad = 0)
+	const naveEnAtaque = new NaveDeCombate(velocidad= 0,modo = ataque)
 
 	test "no esta invisible en reposo" {
 		assert.notThat(naveEnReposo.estaInvisible())
